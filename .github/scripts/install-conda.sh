@@ -163,10 +163,10 @@ else
 
     # conda-libmamba-solver is a special case and must always be installed into the base environment
     # see https://www.anaconda.com/blog/a-faster-conda-for-a-growing-community
-    $SUDO "$CONDA_EXE" install $DRY_RUN_OPTION -y -n base conda-libmamba-solver
-
+    $SUDO "$CONDA_EXE" install $DRY_RUN_OPTION -y -n base cnda-libmamba-solver
+o
     # Use the fast solver by default
-    "${DRY_RUN_ECHO[@]}" $SUDO "$CONDA_EXE" config --system --set experimental_solver libmamba
+    "${DRY_RUN_ECHO[@]}" $SUDO "$CONDA_EXE" config --system --set solver libmamba
 
     # conda-lock is a special case and must always be installed into the base environment
     $SUDO "$CONDA_EXE" install $DRY_RUN_OPTION -y -n base conda-lock=1.4
