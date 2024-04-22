@@ -25,11 +25,11 @@ RUN apt-get update && \
 WORKDIR /root
 
 # Install Chipyard and run ubuntu-req.sh to install necessary dependencies
-RUN git clone https://github.com/ucb-bar/chipyard.git && \
-        cd chipyard && \
+RUN git clone https://github.com/ASM1364/chipyard-test.git && \
+        cd chipyard-test && \
         git checkout $CHIPYARD_HASH
 
-RUN ./chipyard/.github/scripts/install-conda.sh
+RUN ./chipyard-test/.github/scripts/install-conda.sh
 
 # BUILD IMAGE WITH TOOLCHAINS
 
@@ -39,7 +39,7 @@ FROM base as base-with-tools
 SHELL ["/bin/bash", "-cl"]
 
 # Initialize repo
-RUN cd chipyard && \
+RUN cd chipyard-test && \
         export MAKEFLAGS=-"j $(nproc)" && \
         conda activate base && \
         ./setup.sh --env-name chipyard --skip-validate
@@ -49,7 +49,7 @@ SHELL ["/opt/conda/bin/conda", "run", "-n", "chipyard", "/bin/bash", "-cl"]
 # Set up FireMarshal. Building and cleaning br-base.json builds the underlying
 # buildroot image (which takes a long time) but doesn't keep all the br-base
 # stuff around (since that's faster to rebuild).
-RUN cd chipyard && \
+RUN cd chipyard-test && \
         source env.sh && \
         cd software/firemarshal && \
         ./init-submodules.sh && \
